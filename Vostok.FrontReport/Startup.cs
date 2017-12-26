@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Vostok.Commons.Extensions.UnitConvertions;
 using Vostok.Hosting;
-using Vostok.Instrumentation.AspNetCore;
 using Vostok.Logging;
 using Vostok.Metrics;
 

@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Specialized;
 using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
 using SourcemapToolkit.SourcemapParser;
 using Vostok.Commons.Extensions.UnitConvertions;

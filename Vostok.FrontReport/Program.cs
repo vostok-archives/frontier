@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
 using Serilog;
 using Serilog.Events;
 using Vostok.Hosting;

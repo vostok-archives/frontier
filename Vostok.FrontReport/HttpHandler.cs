@@ -3,7 +3,6 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Extensions;
 using Vostok.FrontReport.Dto;
 using Vostok.Logging;
 using Vostok.Metrics;
