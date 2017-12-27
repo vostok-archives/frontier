@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
 using Vostok.FrontReport.Dto;
 using Vostok.Logging;
 using Vostok.Metrics;
@@ -11,14 +12,14 @@ namespace Vostok.FrontReport
 {
     public class HttpHandler
     {
-        private readonly FrontReportSetings setings;
+        private readonly ILog log;
         private readonly HashSet<string> domainWhiteList;
         private readonly IReportHandler[] reportHandlers;
 
-        public HttpHandler(FrontReportSetings setings, IMetricScope metricScope, ILog log)
+        public HttpHandler(IOptions<FrontReportSetings> setings, IMetricScope metricScope, ILog log)
         {
-            this.setings = setings;
-            domainWhiteList = setings.DomainWhitelist?.ToHashSet();
+            this.log = log;
+            domainWhiteList = setings?.Value?.DomainWhitelist?.ToHashSet();
             reportHandlers = new IReportHandler[]
             {
                 new ReportHandler<CspReport>("csp", metricScope, log), 
@@ -27,8 +28,9 @@ namespace Vostok.FrontReport
             };
         }
 
-        public async Task HandleRequest(HttpContext context)
+        public async Task Invoke(HttpContext context)
         {
+            log.Debug($"!!!!!!!!!!!!!!Request {context.Request.Method} {context.Request.Path}");
             AddCorsHeaders(context);
 
             if (HttpMethods.IsGet(context.Request.Method))
@@ -38,7 +40,6 @@ namespace Vostok.FrontReport
             else if (HttpMethods.IsPost(context.Request.Method))
             {
                 var requestPath = context.Request.Path.Value;
-                //context.Response.ContentType = "application/json";
                 if (string.IsNullOrEmpty(requestPath))
                 {
                     context.Response.StatusCode = (int)HttpStatusCode.NotFound;

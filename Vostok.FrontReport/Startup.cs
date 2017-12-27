@@ -30,17 +30,17 @@ namespace Vostok.FrontReport
                         opt.SerializerSettings.Converters.Add(new JsonGuidConverter());
                     });
             services.AddSingleton(x => x.GetService<IVostokHostingEnvironment>().Log);
-            services.AddSingleton(
-                x =>
-                {
-                    var rootScope = x.GetService<IMetricScope>();
-                    var metricScope = rootScope.WithTag(MetricsTagNames.Type,"api");
-                    return new MetricContainer
-                    {
-                        SuccessCounter = metricScope.WithTag("status","200").Counter(FlushMetricsInterval, "requests"),
-                        ErrorCounter = metricScope.WithTag("status", "500").Counter(FlushMetricsInterval, "requests")
-                    };
-                });
+            //services.AddSingleton(
+            //    x =>
+            //    {
+            //        var rootScope = x.GetService<IMetricScope>();
+            //        var metricScope = rootScope.WithTag(MetricsTagNames.Type,"api");
+            //        return new MetricContainer
+            //        {
+            //            SuccessCounter = metricScope.WithTag("status","200").Counter(FlushMetricsInterval, "requests"),
+            //            ErrorCounter = metricScope.WithTag("status", "500").Counter(FlushMetricsInterval, "requests")
+            //        };
+            //    });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,7 +49,8 @@ namespace Vostok.FrontReport
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
             app.UseStaticFiles();
-            app.Run(new HttpHandler(setings.Value, metricScope).HandleRequest);
+            //app.UseMiddleware<HttpHandler>();
+            app.Run(new HttpHandler(setings, metricScope, log).Invoke);
             //app.UseMvc();
             //app.UseVostok();
             log.Info("Configured app");
