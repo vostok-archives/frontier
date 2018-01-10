@@ -1,4 +1,7 @@
-﻿using Newtonsoft.Json;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Newtonsoft.Json;
+using Vostok.Airlock.Logging;
 
 namespace Vostok.FrontReport.Dto
 {
@@ -24,6 +27,10 @@ namespace Vostok.FrontReport.Dto
 
         [JsonProperty("version")]
         public string Version { get; set; }
+        public override string ToString()
+        {
+            return $"{Name}, v.{Version}";
+        }
     }
 
     public class StacktraceReport : Report
@@ -62,5 +69,36 @@ namespace Vostok.FrontReport.Dto
 
         [JsonProperty("appVersion")]
         public string AppVersion { get; set; }
+
+        [JsonProperty("service")]
+        public string Service { get; set; }
+
+        public override string GetProject()
+        {
+            return Service;
+        }
+
+        public override LogEventData ToLogEventData()
+        {
+            var logEventData = base.ToLogEventData();
+            if (Stack != null && Stack.Length > 0)
+            {
+                logEventData.Exceptions = new List<LogEventException>
+                {
+                    new LogEventException
+                    {
+                        Message = Message,
+                        Stack = new List<LogEventStackFrame>(Stack.Select(x => new LogEventStackFrame
+                        {
+                            ColumnNumber = x.ColumnNumber,
+                            LineNumber = x.LineNumber,
+                            Filename = x.FileName,
+                            Function = x.FunctionName
+                        }))
+                    }
+                };
+            }
+            return logEventData;
+        }
     }
 }

@@ -1,0 +1,26 @@
+<html>
+<head></head>
+<body>
+<script src="clientErrorsReporter.min.js"></script>
+<script src="test.min.js"></script>
+<script>
+    window.clientErrorsReporter.configure("market", {
+      additionalFields: {
+        'retailUiVersion': '1.2'
+//        'userId': userId,
+        // 'party',
+        // 'department',
+        // 'salesPoint'
+      }
+//      disableUnhandledPromise: true,
+      // sourceUrlCondition: url => url.startsWith("https://egais.kontur.ru") || url.startsWith("https://market.kontur.ru"),
+    });
+/*  function error() {
+
+    var a = b;
+  }
+*/
+</script>
+<button onclick="error()">Error!</button>
+</body>
+</html>

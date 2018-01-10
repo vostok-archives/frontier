@@ -10,23 +10,24 @@ using Vostok.Metrics.Meters;
 
 namespace Vostok.FrontReport
 {
-    public interface IReportHandler
+    public interface IReportHandler : IDisposable
     {
         bool CanHandle(string requestPath);
-        Task Handle(HttpContext context);
+        Task<Report> Handle(HttpContext context);
+        string Name { get; }
     }
 
     public class ReportHandler<T> : IReportHandler
         where T : Report, new()
     {
-        private readonly string name;
+        public string Name { get; }
         private readonly ILog log;
         private readonly ICounter totalCounter;
         private readonly ICounter errorCounter;
 
         public ReportHandler(string name, IMetricScope metricScope, ILog log)
         {
-            this.name = name;
+            Name = name;
             this.log = log;
             metricScope = metricScope.WithTag(MetricsTagNames.Operation, name);
             totalCounter = metricScope.Counter("total");
@@ -35,10 +36,10 @@ namespace Vostok.FrontReport
 
         public bool CanHandle(string requestPath)
         {
-            return requestPath.Contains(name);
+            return requestPath.Contains(Name);
         }
 
-        public async Task Handle(HttpContext context)
+        public async Task<Report> Handle(HttpContext context)
         {
             totalCounter.Add();
             T report;
@@ -54,16 +55,23 @@ namespace Vostok.FrontReport
                 errorCounter.Add();
                 context.Response.StatusCode = (int) HttpStatusCode.BadRequest;
                 log.Error(e);
-                return;
+                return null;
             }
-            report.Timestamp = DateTime.UtcNow.ToString("O");
+            //report.Timestamp = DateTime.UtcNow.ToString("O");
             report.Host = context.Request.Host.Value;
             log.Debug("report:\n" + report.ToPrettyJson());
+            return report;
         }
 
         protected virtual Task HandleReport(T report)
         {
             return Task.CompletedTask;
+        }
+
+        public void Dispose()
+        {
+            (totalCounter as IDisposable)?.Dispose();
+            (errorCounter as IDisposable)?.Dispose();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -30,12 +31,15 @@ namespace Vostok.FrontReport
 
         protected override async Task HandleReport(StacktraceReport report)
         {
-            foreach (var stackFrame in report.Stack)
+            foreach (var stackFrame in report.Stack.Where(x => !string.IsNullOrEmpty(x.FileName)))
             {
                 SourceMap sourceMap = null;
                 var url = stackFrame.FileName;
                 try
                 {
+                    var uri = new Uri(url);
+                    if (!uri.Scheme.Equals("http", StringComparison.InvariantCultureIgnoreCase) && !uri.Scheme.Equals("https", StringComparison.InvariantCultureIgnoreCase))
+                        continue;
                     if (!cache.Get(url, out sourceMap))
                     {
                         sourceMap = await GetMapFromUrl(url);

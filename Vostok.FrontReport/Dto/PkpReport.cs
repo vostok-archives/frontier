@@ -30,5 +30,8 @@ namespace Vostok.FrontReport.Dto
 
         [JsonProperty("known-pins")]
         public string[] KnownPins { get; set; }
+
+        public override string GetProject() => GetServiceFromHostName(Hostname);
+
     }
 }

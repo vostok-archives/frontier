@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using Newtonsoft.Json;
+using Vostok.Airlock.Logging;
 
 namespace Vostok.FrontReport.Dto
 {
@@ -27,5 +29,13 @@ namespace Vostok.FrontReport.Dto
     {
         [JsonProperty("csp-report")]
         public CspReportBody Body { get; set; }
+        public override LogEventData ToLogEventData()
+        {
+            var logEventData = base.ToLogEventData();
+            LoadStringPropertiesToDictionary(Body, logEventData.Properties);
+            return logEventData;
+        }
+
+        public override string GetProject() => Body == null ? null : GetServiceFromHostName(new Uri(Body.DocumentURI).Host);
     }
 }
