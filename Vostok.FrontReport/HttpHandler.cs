@@ -22,7 +22,7 @@ namespace Vostok.FrontReport
         private readonly IAirlockClient airlockClient;
         private readonly HashSet<string> domainWhiteList;
         private readonly IReportHandler[] reportHandlers;
-        private readonly ICounter successCounter;
+        private readonly ICounter totalCounter;
         private readonly ICounter errorCounter;
         private readonly string environment;
 
@@ -31,14 +31,16 @@ namespace Vostok.FrontReport
             this.log = log;
             this.airlockClient = airlockClient;
             domainWhiteList = setings?.Value?.DomainWhitelist?.ToHashSet();
+            var httpScope = metricScope.WithTag(MetricsTagNames.Type, "http");
             reportHandlers = new IReportHandler[]
             {
-                new ReportHandler<CspReport>("csp", metricScope, log), 
-                new ReportHandler<PkpReport>("pkp", metricScope, log), 
-                new StacktraceHandler("stacktracejs", metricScope, log)
+                new ReportHandler<CspReport>("csp", httpScope, log), 
+                new ReportHandler<PkpReport>("pkp", httpScope, log), 
+                new StacktraceHandler("stacktracejs", httpScope, log)
             };
-            successCounter = metricScope.WithTag(MetricsTagNames.Status, "200").Counter("requests");
-            errorCounter = metricScope.WithTag(MetricsTagNames.Status, "500").Counter("requests");
+            var handlerScope = metricScope.WithTag(MetricsTagNames.Operation, "handler");
+            totalCounter = handlerScope.Counter("total");
+            errorCounter = handlerScope.Counter("errors");
             environment = VostokHostingEnvironment.Current.Environment;
         }
 
@@ -46,6 +48,7 @@ namespace Vostok.FrontReport
         {
             try
             {
+                totalCounter.Add();
                 log.Debug($"Request {context.Request.Method} {context.Request.Path}");
                 AddCorsHeaders(context);
 
@@ -80,7 +83,6 @@ namespace Vostok.FrontReport
                 {
                     context.Response.StatusCode = (int)HttpStatusCode.NoContent;
                 }
-                successCounter.Add();
             }
             catch (Exception e)
             {
@@ -104,7 +106,7 @@ namespace Vostok.FrontReport
 
         public void Dispose()
         {
-            (successCounter as IDisposable)?.Dispose();
+            (totalCounter as IDisposable)?.Dispose();
             (errorCounter as IDisposable)?.Dispose();
             foreach (var reportHandler in reportHandlers)
             {
