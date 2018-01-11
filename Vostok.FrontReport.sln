@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vostok.FrontReport", "Vosto
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vostok.FrontReport.Tests", "Vostok.FrontReport.Tests\Vostok.FrontReport.Tests.csproj", "{05C20DC9-F3D3-43B8-BC79-D54B3ED25AC4}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vostok.FrontReport.IntegrationTests", "Vostok.FrontReport.IntegrationTests\Vostok.FrontReport.IntegrationTests.csproj", "{2558AD35-A88C-441F-84E8-35CD4F2DD943}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{05C20DC9-F3D3-43B8-BC79-D54B3ED25AC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{05C20DC9-F3D3-43B8-BC79-D54B3ED25AC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{05C20DC9-F3D3-43B8-BC79-D54B3ED25AC4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2558AD35-A88C-441F-84E8-35CD4F2DD943}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2558AD35-A88C-441F-84E8-35CD4F2DD943}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2558AD35-A88C-441F-84E8-35CD4F2DD943}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2558AD35-A88C-441F-84E8-35CD4F2DD943}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
