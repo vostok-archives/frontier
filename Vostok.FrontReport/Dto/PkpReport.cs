@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Vostok.Airlock.Logging;
 
 namespace Vostok.FrontReport.Dto
 {

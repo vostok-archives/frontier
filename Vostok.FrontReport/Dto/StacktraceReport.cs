@@ -81,6 +81,9 @@ namespace Vostok.FrontReport.Dto
         public override LogEventData ToLogEventData()
         {
             var logEventData = base.ToLogEventData();
+            logEventData.Message = Message;
+            if (logEventData.Properties.ContainsKey("message"))
+                logEventData.Properties.Remove("message");
             if (Stack != null && Stack.Length > 0)
             {
                 logEventData.Exceptions = new List<LogEventException>

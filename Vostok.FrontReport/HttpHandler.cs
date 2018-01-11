@@ -34,9 +34,9 @@ namespace Vostok.FrontReport
             var httpScope = metricScope.WithTag(MetricsTagNames.Type, "http");
             reportHandlers = new IReportHandler[]
             {
+                new StacktraceHandler("stacktracejs", httpScope, log),
                 new ReportHandler<CspReport>("csp", httpScope, log), 
-                new ReportHandler<PkpReport>("pkp", httpScope, log), 
-                new StacktraceHandler("stacktracejs", httpScope, log)
+                new ReportHandler<PkpReport>("pkp", httpScope, log)
             };
             var handlerScope = metricScope.WithTag(MetricsTagNames.Operation, "handler");
             totalCounter = handlerScope.Counter("total");

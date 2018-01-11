@@ -1,0 +1,79 @@
+{
+    "browser": {
+      "name": "Vivaldi",
+      "version": "1.93.955.36"
+    },
+    "frontreport-host": "frontreport-relay.skbkontur.ru",
+    "message": "Uncaught TypeError: Cannot read property 'shortName' of null",
+    "os": {
+      "name": "Windows",
+      "version": "7"
+    },
+    "service": "diadoc",
+    "sourceUrl": "webpack:///diadoc.kontur.ru/scripts/combined/BD104ED26C5CF0529E16FC15380378E0.js",
+    "stack": [
+      {
+        "columnNumber": 1867,
+        "fileName": "webpack:///diadoc.kontur.ru/scripts/combined/BD104ED26C5CF0529E16FC15380378E0.js",
+        "functionName": "o.constructor._getOrgName",
+        "lineNumber": 479
+      },
+      {
+        "columnNumber": 1715,
+        "fileName": "webpack:///diadoc.kontur.ru/scripts/combined/BD104ED26C5CF0529E16FC15380378E0.js",
+        "functionName": "o.constructor.<anonymous>",
+        "lineNumber": 479
+      },
+      {
+        "columnNumber": 1711,
+        "fileName": "webpack:///diadoc.kontur.ru/scripts/combined/BD104ED26C5CF0529E16FC15380378E0.js",
+        "functionName": "Object.i",
+        "lineNumber": 2
+      },
+      {
+        "columnNumber": 23886,
+        "fileName": "webpack:///diadoc.kontur.ru/Views/Shared/Commons/_webpack-assets/cf0bf5a2c45e9814b7e0.common.js",
+        "functionName": "Object.<anonymous>",
+        "lineNumber": 31
+      },
+      {
+        "columnNumber": 22506,
+        "fileName": "webpack:///diadoc.kontur.ru/Views/Shared/Commons/_webpack-assets/cf0bf5a2c45e9814b7e0.common.js",
+        "functionName": "c",
+        "lineNumber": 31
+      },
+      {
+        "columnNumber": 23323,
+        "fileName": "webpack:///diadoc.kontur.ru/Views/Shared/Commons/_webpack-assets/cf0bf5a2c45e9814b7e0.common.js",
+        "functionName": "Object.fireWith [as resolveWith]",
+        "lineNumber": 31
+      },
+      {
+        "columnNumber": 24012,
+        "fileName": "webpack:///diadoc.kontur.ru/Views/Shared/Commons/_webpack-assets/cf0bf5a2c45e9814b7e0.common.js",
+        "functionName": "Object.<anonymous>",
+        "lineNumber": 31
+      },
+      {
+        "columnNumber": 22506,
+        "fileName": "webpack:///diadoc.kontur.ru/Views/Shared/Commons/_webpack-assets/cf0bf5a2c45e9814b7e0.common.js",
+        "functionName": "c",
+        "lineNumber": 31
+      },
+      {
+        "columnNumber": 23323,
+        "fileName": "webpack:///diadoc.kontur.ru/Views/Shared/Commons/_webpack-assets/cf0bf5a2c45e9814b7e0.common.js",
+        "functionName": "Object.fireWith [as resolveWith]",
+        "lineNumber": 31
+      },
+      {
+        "columnNumber": 24012,
+        "fileName": "webpack:///diadoc.kontur.ru/Views/Shared/Commons/_webpack-assets/cf0bf5a2c45e9814b7e0.common.js",
+        "functionName": "Object.<anonymous>",
+        "lineNumber": 31
+      }
+    ],
+    "stackHash": "1bed97f3c9391a12e2ab34c24dbed475",
+    "url": "http://diadoc.kontur.ru/87264804-b812-48c1-b461-0edbf3a25e93/Folder/Outbox",
+    "userId": "5e6dbcc1-b305-4c74-8055-574122d84e76"
+  }

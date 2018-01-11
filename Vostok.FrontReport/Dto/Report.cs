@@ -23,7 +23,6 @@ namespace Vostok.FrontReport.Dto
                 Timestamp = DateTimeOffset.UtcNow,
                 Properties = new Dictionary<string, string>()
             };
-            //logEventData.Properties["_type"] = GetType().Name;
             LoadStringPropertiesToDictionary(this, logEventData.Properties);
             return logEventData;
         }
@@ -32,13 +31,13 @@ namespace Vostok.FrontReport.Dto
         {
             if (string.IsNullOrWhiteSpace(host))
                 return null;
-            return host.Replace("kontur.ru", "").Replace(".ru","").Replace("www.","");
+            return host.Replace(".kontur.ru", "").Replace(".ru","").Replace("www.","");
         }
 
         protected static void LoadStringPropertiesToDictionary(object obj, IDictionary<string, string> dictionary)
         {
             obj.GetType().GetProperties().Where(prop => Attribute.IsDefined(prop, typeof(JsonPropertyAttribute)) 
-                                                        && (prop.PropertyType==typeof(string) || prop.PropertyType == typeof(bool) || prop.PropertyType == typeof(int)) &&
+                                                        && (prop.PropertyType==typeof(string) || prop.PropertyType == typeof(bool) || prop.PropertyType == typeof(int) || prop.PropertyType == typeof(string[])) &&
                                                         !string.IsNullOrEmpty(prop.GetValue(obj)?.ToString()))
                 .ForEach(prop =>
                 {
