@@ -6,11 +6,11 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using SourcemapToolkit.SourcemapParser;
 using Vostok.Commons.Extensions.UnitConvertions;
-using Vostok.FrontReport.Dto;
+using Vostok.Frontier.Dto;
 using Vostok.Logging;
 using Vostok.Metrics;
 
-namespace Vostok.FrontReport
+namespace Vostok.Frontier
 {
     public class StacktraceHandler : ReportHandler<StacktraceReport>
     {

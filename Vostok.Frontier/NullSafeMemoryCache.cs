@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Caching.Memory;
 using Vostok.Commons.Extensions.UnitConvertions;
 
-namespace Vostok.FrontReport
+namespace Vostok.Frontier
 {
     public class NullSafeMemoryCache : IDisposable
     {

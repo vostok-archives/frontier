@@ -3,7 +3,6 @@
       "name": "Vivaldi",
       "version": "1.93.955.36"
     },
-    "frontreport-host": "frontreport-relay.skbkontur.ru",
     "message": "Uncaught TypeError: Cannot read property 'shortName' of null",
     "os": {
       "name": "Windows",

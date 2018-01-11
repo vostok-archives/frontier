@@ -8,7 +8,7 @@ using Vostok.Logging.Serilog;
 using Vostok.Logging.Serilog.Enrichers;
 using Vostok.Metrics;
 
-namespace Vostok.FrontReport
+namespace Vostok.Frontier
 {
     public class Application : AspNetCoreVostokApplication
     {

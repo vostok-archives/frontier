@@ -7,5 +7,4 @@
       "referrer": "",
       "violated-directive": "default-src 'self' data: https: https://*.adriver.ru https://*.kontur.ru https://kontur.ru https://dl.metabar.ru https://www.googletagmanager.com https://www.google-analytics.com https://*.googleapis.com https://ssl.google-analytics.com/ https://*.yandex.ru https://yastatic.net https://*.yandex.ua ya.ru https://counter.yadro.ru https://top-fwz1.mail.ru https://*.facebook.com https://*.twitter.com https://*.vk.com https://vk.com https://*.facebook.net https://*.ok.ru https://*.doubleclick.net 'unsafe-inline' 'unsafe-eval'"
     },
-    "frontreport-host": "elk-relay.skbkontur.ru",
   }

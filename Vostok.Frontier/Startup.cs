@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Vostok.Hosting;
 using Vostok.Logging;
 
-namespace Vostok.FrontReport
+namespace Vostok.Frontier
 {
     public class Startup
     {
@@ -21,7 +21,7 @@ namespace Vostok.FrontReport
         [UsedImplicitly]
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<FrontReportSetings>(options => Configuration.GetSection("FrontReport").Bind(options));
+            services.Configure<FrontierSetings>(options => Configuration.GetSection("Frontier").Bind(options));
             services.AddSingleton(x => x.GetService<IVostokHostingEnvironment>().Log);
             services.AddSingleton<HttpHandler>();
         }

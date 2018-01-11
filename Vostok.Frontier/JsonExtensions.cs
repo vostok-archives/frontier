@@ -1,7 +1,7 @@
 ﻿using JetBrains.Annotations;
 using Newtonsoft.Json;
 
-namespace Vostok.FrontReport
+namespace Vostok.Frontier
 {
     public static class JsonExtensions
     {

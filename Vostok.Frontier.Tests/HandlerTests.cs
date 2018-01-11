@@ -12,7 +12,7 @@ using Vostok.Logging;
 using Vostok.Logging.Logs;
 using Vostok.Metrics;
 
-namespace Vostok.FrontReport.Tests
+namespace Vostok.Frontier.Tests
 {
     public class HandlerTests
     {
@@ -42,7 +42,7 @@ namespace Vostok.FrontReport.Tests
                     logEventData = x.Arg<LogEventData>();
                     log.Debug(logEventData.ToPrettyJson());
                 });
-            httpHandler = new HttpHandler(new OptionsWrapper<FrontReportSetings>(new FrontReportSetings()), metricScope, log, airlockClient);
+            httpHandler = new HttpHandler(new OptionsWrapper<FrontierSetings>(new FrontierSetings()), metricScope, log, airlockClient);
         }
 
         private void InvokeTest(string type)
@@ -53,7 +53,7 @@ namespace Vostok.FrontReport.Tests
             context.Request.Body = File.OpenRead($"messages\\{type}.txt");
             httpHandler.Invoke(context).Wait();
             RoutingKey.Parse(routingKey, out project, out env, out var service, out _);
-            Assert.AreEqual("frontreport-"+type, service);
+            Assert.AreEqual("frontier-"+type, service);
             Assert.AreEqual(LogLevel.Error, logEventData.Level);
         }
 

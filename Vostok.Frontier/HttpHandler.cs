@@ -7,13 +7,13 @@ using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Vostok.Airlock;
-using Vostok.FrontReport.Dto;
+using Vostok.Frontier.Dto;
 using Vostok.Hosting;
 using Vostok.Logging;
 using Vostok.Metrics;
 using Vostok.Metrics.Meters;
 
-namespace Vostok.FrontReport
+namespace Vostok.Frontier
 {
     [UsedImplicitly]
     public class HttpHandler : IDisposable
@@ -26,7 +26,7 @@ namespace Vostok.FrontReport
         private readonly ICounter errorCounter;
         private readonly string environment;
 
-        public HttpHandler(IOptions<FrontReportSetings> setings, IMetricScope metricScope, ILog log, IAirlockClient airlockClient)
+        public HttpHandler(IOptions<FrontierSetings> setings, IMetricScope metricScope, ILog log, IAirlockClient airlockClient)
         {
             this.log = log;
             this.airlockClient = airlockClient;
@@ -54,7 +54,7 @@ namespace Vostok.FrontReport
 
                 if (HttpMethods.IsGet(context.Request.Method))
                 {
-                    await context.Response.WriteAsync("FrontReport is running");
+                    await context.Response.WriteAsync("Frontier is running");
                 }
                 else if (HttpMethods.IsPost(context.Request.Method))
                 {
@@ -74,7 +74,7 @@ namespace Vostok.FrontReport
                     var report = await reportHandler.Handle(context);
                     var logEventData = report.ToLogEventData();
 
-                    var routingKey = RoutingKey.Create(report.GetProject(), environment, "frontreport_" + reportHandler.Name, RoutingKey.LogsSuffix);
+                    var routingKey = RoutingKey.Create(report.GetProject(), environment, "frontier_" + reportHandler.Name, RoutingKey.LogsSuffix);
                     log.Debug("Send data via airlock to " + routingKey);
                     airlockClient.Push(routingKey, logEventData, logEventData.Timestamp);
                     context.Response.StatusCode = (int)HttpStatusCode.NoContent;

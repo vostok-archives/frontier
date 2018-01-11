@@ -4,7 +4,7 @@ using System.Net.Http;
 using NUnit.Framework;
 using Vostok.Logging.Logs;
 
-namespace Vostok.FrontReport.IntegrationTests
+namespace Vostok.Frontier.IntegrationTests
 {
     public class HandlerTests
     {

@@ -5,7 +5,7 @@ using Vostok.Hosting;
 using Vostok.Logging;
 using Vostok.Logging.Serilog;
 
-namespace Vostok.FrontReport
+namespace Vostok.Frontier
 {
     public class Program
     {
@@ -39,7 +39,7 @@ namespace Vostok.FrontReport
         private static IVostokHost BuildVostokHost(params string[] args)
         {
             return new VostokHostBuilder<Application>()
-                .SetServiceInfo("vostok", "frontreport")
+                .SetServiceInfo("vostok", "frontier")
                 .ConfigureAppConfiguration(configurationBuilder =>
                 {
                     configurationBuilder.AddCommandLine(args);

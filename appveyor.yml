@@ -7,7 +7,7 @@ install:
   - ps: |
       $zeroPaddedBuildNumber = [convert]::ToInt32($env:appveyor_build_number, 10).ToString("000000")
       Update-AppveyorBuild -Version "1.0.0-pre$zeroPaddedBuildNumber"
-      $xmlPath = "$env:appveyor_build_folder\Vostok.FrontReport.Tests\Vostok.FrontReport.Tests.csproj"
+      $xmlPath = "$env:appveyor_build_folder\Vostok.Frontier.Tests\Vostok.Frontier.Tests.csproj"
       $xml = [xml](get-content $xmlPath)
       $version = $xml.CreateElement("Version")
       $versionText = $xml.CreateTextNode($env:appveyor_build_version)
@@ -17,8 +17,8 @@ install:
   - dotnet restore
 configuration: Release
 test_script:
-  - ps: dotnet test "$env:appveyor_build_folder\Vostok.FrontReport.Tests\Vostok.FrontReport.Tests.csproj" --logger "trx;LogFileName=tests.trx"
+  - ps: dotnet test "$env:appveyor_build_folder\Vostok.Frontier.Tests\Vostok.Frontier.Tests.csproj" --logger "trx;LogFileName=tests.trx"
 after_test:
   - ps: |
       $wc = New-Object 'System.Net.WebClient'
-      $wc.UploadFile("https://ci.appveyor.com/api/testresults/xunit/$($env:appveyor_job_id)", "$env:appveyor_build_folder\Vostok.FrontReport.Tests\TestResults\tests.trx")
+      $wc.UploadFile("https://ci.appveyor.com/api/testresults/xunit/$($env:appveyor_job_id)", "$env:appveyor_build_folder\Vostok.Frontier.Tests\TestResults\tests.trx")

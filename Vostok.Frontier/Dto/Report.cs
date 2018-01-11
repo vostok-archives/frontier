@@ -6,11 +6,11 @@ using Newtonsoft.Json;
 using Vostok.Airlock.Logging;
 using Vostok.Logging;
 
-namespace Vostok.FrontReport.Dto
+namespace Vostok.Frontier.Dto
 {
     public abstract class Report
     {
-        [JsonProperty("frontreport-host")]
+        [JsonProperty("frontier-host")]
         public string Host { get; set; }
 
         public abstract string GetProject();

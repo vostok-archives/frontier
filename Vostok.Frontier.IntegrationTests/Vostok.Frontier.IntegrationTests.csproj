@@ -15,7 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Vostok.FrontReport\Vostok.FrontReport.csproj" />
+    <ProjectReference Include="..\Vostok.Frontier\Vostok.Frontier.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,12 +26,6 @@
 
   <ItemGroup>
     <None Update="messages\csp.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="messages\pkp.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="messages\stacktracejs.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
