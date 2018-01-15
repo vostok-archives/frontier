@@ -15,17 +15,23 @@ namespace Vostok.Frontier
     public class StacktraceHandler : ReportHandler<StacktraceReport>
     {
         private readonly ILog log;
+        private readonly FrontierSetings setings;
         private readonly HttpClient httpClient;
         private readonly Regex mappingUrlRegex = new Regex(@"sourceMappingURL=(\S+)\s+$", RegexOptions.Compiled);
         private readonly SourceMapParser sourceMapParser = new SourceMapParser();
         private readonly NullSafeMemoryCache cache;
         private readonly TimeSpan expirationTimeSpan = 24.Hours();
 
-        public StacktraceHandler(string name, IMetricScope metricScope, ILog log)
+        public StacktraceHandler(string name, IMetricScope metricScope, ILog log, FrontierSetings setings)
             : base(name, metricScope, log)
         {
             this.log = log;
-            httpClient = new HttpClient();
+            this.setings = setings;
+            var handler = new HttpClientHandler
+            {
+                AllowAutoRedirect = false
+            };
+            httpClient = new HttpClient(handler);
             cache = new NullSafeMemoryCache();
         }
 
@@ -40,6 +46,17 @@ namespace Vostok.Frontier
                     var uri = new Uri(url);
                     if (!uri.Scheme.Equals("http", StringComparison.InvariantCultureIgnoreCase) && !uri.Scheme.Equals("https", StringComparison.InvariantCultureIgnoreCase))
                         continue;
+                    if (!setings.IsAllowedDomain(uri.Host))
+                    {
+                        log.Error($"{url} doesn't contain allowed domain");
+                        continue;
+                    }
+                    if (!setings.IsAllowedDomainForSourceMap(uri.Host))
+                    {
+                        log.Debug($"{url} domain doesn't support sourcemaps");
+                        continue;
+                    }
+
                     if (!cache.Get(url, out sourceMap))
                     {
                         sourceMap = await GetMapFromUrl(url);

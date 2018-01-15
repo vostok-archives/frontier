@@ -13,7 +13,7 @@
     "stack": [
       {
         "columnNumber": 1867,
-        "fileName": "webpack:///diadoc.kontur.ru/scripts/combined/BD104ED26C5CF0529E16FC15380378E0.js",
+        "fileName": "http://diadoc.kontur.ru/scripts/combined/BD104ED26C5CF0529E16FC15380378E0.js",
         "functionName": "o.constructor._getOrgName",
         "lineNumber": 479
       },

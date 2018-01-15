@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Options;
-using Microsoft.VisualBasic.CompilerServices;
 using NSubstitute;
 using NUnit.Framework;
 using Vostok.Airlock;
@@ -17,15 +15,13 @@ namespace Vostok.Frontier.Tests
     public class HandlerTests
     {
         private readonly HttpHandler httpHandler;
-        private readonly ConsoleLog log;
         private LogEventData logEventData;
         private string routingKey;
         private string project;
-        private string env;
 
         public HandlerTests()
         {
-            log = new ConsoleLog();
+            var log = new ConsoleLog();
             var metricScope = Substitute.For<IMetricScope>();
             var airlockClient = Substitute.For<IAirlockClient>();
             VostokHostingEnvironment.Current = new VostokHostingEnvironment()
@@ -42,7 +38,7 @@ namespace Vostok.Frontier.Tests
                     logEventData = x.Arg<LogEventData>();
                     log.Debug(logEventData.ToPrettyJson());
                 });
-            httpHandler = new HttpHandler(new OptionsWrapper<FrontierSetings>(new FrontierSetings()), metricScope, log, airlockClient);
+            httpHandler = new HttpHandler(new FrontierSetings { SourceMapBlacklist = new []{ "diadoc.kontur.ru" } }, metricScope, log, airlockClient);
         }
 
         private void InvokeTest(string type)
@@ -52,7 +48,7 @@ namespace Vostok.Frontier.Tests
             context.Request.Path = "/_" + type;
             context.Request.Body = File.OpenRead($"messages\\{type}.txt");
             httpHandler.Invoke(context).Wait();
-            RoutingKey.Parse(routingKey, out project, out env, out var service, out _);
+            RoutingKey.Parse(routingKey, out project, out _, out var service, out _);
             Assert.AreEqual("frontier-"+type, service);
             Assert.AreEqual(LogLevel.Error, logEventData.Level);
         }

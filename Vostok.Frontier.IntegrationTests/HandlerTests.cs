@@ -2,19 +2,11 @@
 using System.Net;
 using System.Net.Http;
 using NUnit.Framework;
-using Vostok.Logging.Logs;
 
 namespace Vostok.Frontier.IntegrationTests
 {
     public class HandlerTests
     {
-        private readonly ConsoleLog log;
-
-        public HandlerTests()
-        {
-            log = new ConsoleLog();
-        }
-
         [Test]
         public void TestCsp()
         {

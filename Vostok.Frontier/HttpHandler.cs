@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Options;
 using Vostok.Airlock;
 using Vostok.Frontier.Dto;
 using Vostok.Hosting;
@@ -20,21 +18,20 @@ namespace Vostok.Frontier
     {
         private readonly ILog log;
         private readonly IAirlockClient airlockClient;
-        private readonly HashSet<string> domainWhiteList;
         private readonly IReportHandler[] reportHandlers;
         private readonly ICounter totalCounter;
         private readonly ICounter errorCounter;
         private readonly string environment;
 
-        public HttpHandler(IOptions<FrontierSetings> setings, IMetricScope metricScope, ILog log, IAirlockClient airlockClient)
+        public HttpHandler(FrontierSetings setings, IMetricScope metricScope, ILog log, IAirlockClient airlockClient)
         {
             this.log = log;
             this.airlockClient = airlockClient;
-            domainWhiteList = setings?.Value?.DomainWhitelist?.ToHashSet();
+            log.Debug("settings: " + setings?.ToPrettyJson());
             var httpScope = metricScope.WithTag(MetricsTagNames.Type, "http");
             reportHandlers = new IReportHandler[]
             {
-                new StacktraceHandler("stacktracejs", httpScope, log),
+                new StacktraceHandler("stacktracejs", httpScope, log, setings),
                 new ReportHandler<CspReport>("csp", httpScope, log), 
                 new ReportHandler<PkpReport>("pkp", httpScope, log)
             };
@@ -50,7 +47,6 @@ namespace Vostok.Frontier
             {
                 totalCounter.Add();
                 log.Debug($"Request {context.Request.Method} {context.Request.Path}");
-                AddCorsHeaders(context);
 
                 if (HttpMethods.IsGet(context.Request.Method))
                 {
@@ -89,19 +85,6 @@ namespace Vostok.Frontier
                 errorCounter.Add();
                 log.Error(e);
             }
-        }
-
-        private void AddCorsHeaders(HttpContext context)
-        {
-            var origin = context.Request.Headers["Origin"];
-            if (domainWhiteList != null && domainWhiteList.Count > 0)
-            {
-                if (!domainWhiteList.Contains(origin))
-                    return;
-            }
-            context.Response.Headers["Access-Control-Allow-Origin"] = origin;
-            context.Response.Headers["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS";
-            context.Response.Headers["Access-Control-Allow-Headers"] = "Content-Type";
         }
 
         public void Dispose()
