@@ -17,11 +17,11 @@
     <PackageReference Include="Serilog.Sinks.Console" version="3.1.0" />
     <PackageReference Include="Serilog.Sinks.RollingFile" Version="3.3.0" />
     <PackageReference Include="SourceMapToolkit" Version="1.1.4" />
-    <PackageReference Include="Vostok.Core" Version="1.0.0-pre000420-ExceptionDetailization" />
-    <PackageReference Include="Vostok.Hosting" Version="1.0.0-pre000420-ExceptionDetailization" />
-    <PackageReference Include="Vostok.Hosting.Core" Version="1.0.0-pre000420-ExceptionDetailization" />
-    <PackageReference Include="Vostok.Instrumentation.AspNetCore" Version="1.0.0-pre000136-ExceptionDetalization" />
-    <PackageReference Include="Vostok.Logging.Serilog" Version="1.0.0-pre000136-ExceptionDetalization" />
+    <PackageReference Include="Vostok.Core" Version="1.0.0-pre000462" />
+    <PackageReference Include="Vostok.Hosting" Version="1.0.0-pre000462" />
+    <PackageReference Include="Vostok.Hosting.Core" Version="1.0.0-pre000462" />
+    <PackageReference Include="Vostok.Instrumentation.AspNetCore" Version="1.0.0-pre000142" />
+    <PackageReference Include="Vostok.Logging.Serilog" Version="1.0.0-pre000142" />
   </ItemGroup>
 
   <ItemGroup>
