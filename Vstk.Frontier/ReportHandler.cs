@@ -3,12 +3,12 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
-using Vostok.Frontier.Dto;
-using Vostok.Logging;
-using Vostok.Metrics;
-using Vostok.Metrics.Meters;
+using Vstk.Frontier.Dto;
+using Vstk.Logging;
+using Vstk.Metrics;
+using Vstk.Metrics.Meters;
 
-namespace Vostok.Frontier
+namespace Vstk.Frontier
 {
     public interface IReportHandler : IDisposable
     {

@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
-using Vostok.Logging;
+using Vstk.Logging;
 
-namespace Vostok.Frontier
+namespace Vstk.Frontier
 {
     [UsedImplicitly]
     public class CorsMiddleware

@@ -3,14 +3,14 @@ using System.IO;
 using Microsoft.AspNetCore.Http;
 using NSubstitute;
 using NUnit.Framework;
-using Vostok.Airlock;
-using Vostok.Airlock.Logging;
-using Vostok.Hosting;
-using Vostok.Logging;
-using Vostok.Logging.Logs;
-using Vostok.Metrics;
+using Vstk.Airlock;
+using Vstk.Airlock.Logging;
+using Vstk.Hosting;
+using Vstk.Logging;
+using Vstk.Logging.Logs;
+using Vstk.Metrics;
 
-namespace Vostok.Frontier.Tests
+namespace Vstk.Frontier.Tests
 {
     public class HandlerTests
     {

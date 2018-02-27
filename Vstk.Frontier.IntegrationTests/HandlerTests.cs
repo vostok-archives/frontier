@@ -3,7 +3,7 @@ using System.Net;
 using System.Net.Http;
 using NUnit.Framework;
 
-namespace Vostok.Frontier.IntegrationTests
+namespace Vstk.Frontier.IntegrationTests
 {
     public class HandlerTests
     {

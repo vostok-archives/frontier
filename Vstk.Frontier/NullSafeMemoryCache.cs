@@ -1,8 +1,8 @@
 ﻿using System;
 using Microsoft.Extensions.Caching.Memory;
-using Vostok.Commons.Extensions.UnitConvertions;
+using Vstk.Commons.Extensions.UnitConvertions;
 
-namespace Vostok.Frontier
+namespace Vstk.Frontier
 {
     public class NullSafeMemoryCache : IDisposable
     {

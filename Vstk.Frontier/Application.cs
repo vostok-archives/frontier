@@ -1,14 +1,14 @@
-﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting;
 using Serilog;
 using Serilog.Events;
-using Vostok.Commons.Extensions.UnitConvertions;
-using Vostok.Hosting;
-using Vostok.Instrumentation.AspNetCore;
-using Vostok.Logging.Serilog;
-using Vostok.Logging.Serilog.Enrichers;
-using Vostok.Metrics;
+using Vstk.Commons.Extensions.UnitConvertions;
+using Vstk.Hosting;
+using Vstk.Instrumentation.AspNetCore;
+using Vstk.Logging.Serilog;
+using Vstk.Logging.Serilog.Enrichers;
+using Vstk.Metrics;
 
-namespace Vostok.Frontier
+namespace Vstk.Frontier
 {
     public class Application : AspNetCoreVostokApplication
     {
@@ -36,7 +36,7 @@ namespace Vostok.Frontier
                 //.Configure(app =>
                 //{
                 //    var env = app.ApplicationServices.GetRequiredService<IHostingEnvironment>();
-                //    app.UseVostok();
+                //    app.UseVstk();
                 //    if (env.IsDevelopment())
                 //        app.UseDeveloperExceptionPage();
                 //    app.UseMvc();

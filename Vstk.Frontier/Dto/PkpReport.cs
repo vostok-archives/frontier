@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Vostok.Frontier.Dto
+namespace Vstk.Frontier.Dto
 {
     public class PkpReport : Report
     {

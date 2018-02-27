@@ -1,8 +1,8 @@
 ﻿using System;
 using Newtonsoft.Json;
-using Vostok.Airlock.Logging;
+using Vstk.Airlock.Logging;
 
-namespace Vostok.Frontier.Dto
+namespace Vstk.Frontier.Dto
 {
     public class CspReportBody
     {

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Ajax.Utilities;
 using Newtonsoft.Json;
-using Vostok.Airlock.Logging;
-using Vostok.Logging;
+using Vstk.Airlock.Logging;
+using Vstk.Logging;
 
-namespace Vostok.Frontier.Dto
+namespace Vstk.Frontier.Dto
 {
     public abstract class Report
     {

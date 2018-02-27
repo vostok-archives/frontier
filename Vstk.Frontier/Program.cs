@@ -1,11 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
 using Serilog;
 using Serilog.Events;
-using Vostok.Hosting;
-using Vostok.Logging;
-using Vostok.Logging.Serilog;
+using Vstk.Hosting;
+using Vstk.Logging;
+using Vstk.Logging.Serilog;
 
-namespace Vostok.Frontier
+namespace Vstk.Frontier
 {
     public class Program
     {

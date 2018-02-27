@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Vostok.Hosting;
-using Vostok.Logging;
+using Vstk.Hosting;
+using Vstk.Logging;
 
-namespace Vostok.Frontier
+namespace Vstk.Frontier
 {
     public class Startup
     {
@@ -37,7 +37,7 @@ namespace Vostok.Frontier
             app.UseMiddleware<CorsMiddleware>();
             app.UseStaticFiles();
             app.Run(httpHandler.Invoke);
-            //app.UseVostok();
+            //app.UseVstk();
             log.Info("Configured app");
         }
     }
