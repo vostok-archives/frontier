@@ -36,7 +36,7 @@ namespace Vstk.Frontier
                 //.Configure(app =>
                 //{
                 //    var env = app.ApplicationServices.GetRequiredService<IHostingEnvironment>();
-                //    app.UseVstk();
+                //    app.UseVostok();
                 //    if (env.IsDevelopment())
                 //        app.UseDeveloperExceptionPage();
                 //    app.UseMvc();

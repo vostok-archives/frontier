@@ -37,7 +37,7 @@ namespace Vstk.Frontier
             app.UseMiddleware<CorsMiddleware>();
             app.UseStaticFiles();
             app.Run(httpHandler.Invoke);
-            //app.UseVstk();
+            //app.UseVostok();
             log.Info("Configured app");
         }
     }
