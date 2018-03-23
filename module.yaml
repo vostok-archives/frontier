@@ -1,16 +1,16 @@
 full-build *default:
   deps:
-    - vstk.clusterclient.transport.http
-    - vstk.clusterclient
-    - vstk.airlock.client
-    - vstk.core
-    - vstk.hosting.core
-    - vstk.hosting
-    - vstk.instrumentation.aspnetcore
-    - vstk.logging.serilog
+    - vostok.clusterclient.transport.http
+    - vostok.clusterclient
+    - vostok.airlock.client
+    - vostok.core
+    - vostok.hosting.core
+    - vostok.hosting
+    - vostok.instrumentation.aspnetcore
+    - vostok.logging.serilog
 
   build:
-    target: Vstk.Frontier.sln
+    target: Vostok.Frontier.sln
     configuration: Release
     tool:
       name: dotnet

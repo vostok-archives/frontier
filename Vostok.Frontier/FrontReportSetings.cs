@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Vstk.Frontier
+namespace Vostok.Frontier
 {
     public class FrontierSetings
     {

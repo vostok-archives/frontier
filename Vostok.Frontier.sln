@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2010
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vstk.Frontier", "Vstk.Frontier\Vstk.Frontier.csproj", "{EAD14B56-9AD3-4371-B5F2-F3CF86B5B0BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vostok.Frontier", "Vostok.Frontier\Vostok.Frontier.csproj", "{EAD14B56-9AD3-4371-B5F2-F3CF86B5B0BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vstk.Frontier.Tests", "Vstk.Frontier.Tests\Vstk.Frontier.Tests.csproj", "{05C20DC9-F3D3-43B8-BC79-D54B3ED25AC4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vostok.Frontier.Tests", "Vostok.Frontier.Tests\Vostok.Frontier.Tests.csproj", "{05C20DC9-F3D3-43B8-BC79-D54B3ED25AC4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vstk.Frontier.IntegrationTests", "Vstk.Frontier.IntegrationTests\Vstk.Frontier.IntegrationTests.csproj", "{2558AD35-A88C-441F-84E8-35CD4F2DD943}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vostok.Frontier.IntegrationTests", "Vostok.Frontier.IntegrationTests\Vostok.Frontier.IntegrationTests.csproj", "{2558AD35-A88C-441F-84E8-35CD4F2DD943}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

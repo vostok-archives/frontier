@@ -14,25 +14,25 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Vstk.Frontier\Vstk.Frontier.csproj" />
+    <ProjectReference Include="..\Vostok.Frontier\Vostok.Frontier.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Vstk.Core">
+    <Reference Include="Vostok.Core">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\vstk.core\Vstk.Core\bin\Release\netstandard2.0\Vstk.Core.dll</HintPath>
+      <HintPath>..\..\vostok.core\Vostok.Core\bin\Release\netstandard2.0\Vostok.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Vstk.Airlock.Client">
+    <Reference Include="Vostok.Airlock.Client">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\vstk.airlock.client\Vstk.Airlock.Client\bin\Release\netstandard2.0\Vstk.Airlock.Client.dll</HintPath>
+      <HintPath>..\..\vostok.airlock.client\Vostok.Airlock.Client\bin\Release\netstandard2.0\Vostok.Airlock.Client.dll</HintPath>
     </Reference>
-    <Reference Include="Vstk.Hosting.Core">
+    <Reference Include="Vostok.Hosting.Core">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\vstk.hosting.core\Vstk.Hosting.Core\bin\Release\netstandard2.0\Vstk.Hosting.Core.dll</HintPath>
+      <HintPath>..\..\vostok.hosting.core\Vostok.Hosting.Core\bin\Release\netstandard2.0\Vostok.Hosting.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Vstk.Hosting">
+    <Reference Include="Vostok.Hosting">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\vstk.hosting\Vstk.Hosting\bin\Release\netstandard2.0\Vstk.Hosting.dll</HintPath>
+      <HintPath>..\..\vostok.hosting\Vostok.Hosting\bin\Release\netstandard2.0\Vostok.Hosting.dll</HintPath>
     </Reference>
   </ItemGroup>
 

@@ -4,10 +4,10 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Vstk.Hosting;
-using Vstk.Logging;
+using Vostok.Hosting;
+using Vostok.Logging;
 
-namespace Vstk.Frontier
+namespace Vostok.Frontier
 {
     public class Startup
     {

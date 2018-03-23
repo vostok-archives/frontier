@@ -5,12 +5,12 @@ using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using SourcemapToolkit.SourcemapParser;
-using Vstk.Commons.Extensions.UnitConvertions;
-using Vstk.Frontier.Dto;
-using Vstk.Logging;
-using Vstk.Metrics;
+using Vostok.Commons.Extensions.UnitConvertions;
+using Vostok.Frontier.Dto;
+using Vostok.Logging;
+using Vostok.Metrics;
 
-namespace Vstk.Frontier
+namespace Vostok.Frontier
 {
     public class StacktraceHandler : ReportHandler<StacktraceReport>
     {

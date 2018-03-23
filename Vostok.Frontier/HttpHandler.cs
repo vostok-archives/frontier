@@ -4,14 +4,14 @@ using System.Net;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
-using Vstk.Airlock;
-using Vstk.Frontier.Dto;
-using Vstk.Hosting;
-using Vstk.Logging;
-using Vstk.Metrics;
-using Vstk.Metrics.Meters;
+using Vostok.Airlock;
+using Vostok.Frontier.Dto;
+using Vostok.Hosting;
+using Vostok.Logging;
+using Vostok.Metrics;
+using Vostok.Metrics.Meters;
 
-namespace Vstk.Frontier
+namespace Vostok.Frontier
 {
     [UsedImplicitly]
     public class HttpHandler : IDisposable
