@@ -1,24 +1,25 @@
-version: '1.0.0-pre{build}'
+version: '0.0.0.{build}'
 image: Visual Studio 2017
 nuget:
   project_feed: true
   disable_publish_on_pr: true
-install:
+build_script:
   - ps: |
-      $zeroPaddedBuildNumber = [convert]::ToInt32($env:appveyor_build_number, 10).ToString("000000")
-      Update-AppveyorBuild -Version "1.0.0-pre$zeroPaddedBuildNumber"
-      $xmlPath = "$env:appveyor_build_folder\Vostok.Frontier.Tests\Vostok.Frontier.Tests.csproj"
-      $xml = [xml](get-content $xmlPath)
-      $version = $xml.CreateElement("Version")
-      $versionText = $xml.CreateTextNode($env:appveyor_build_version)
-      $version.AppendChild($versionText)
-      $xml.Project.PropertyGroup.AppendChild($version)
-      $xml.Save($xmlPath)
-  - dotnet restore
-configuration: Release
-test_script:
-  - ps: dotnet test "$env:appveyor_build_folder\Vostok.Frontier.Tests\Vostok.Frontier.Tests.csproj" --logger "trx;LogFileName=tests.trx"
-after_test:
-  - ps: |
-      $wc = New-Object 'System.Net.WebClient'
-      $wc.UploadFile("https://ci.appveyor.com/api/testresults/xunit/$($env:appveyor_job_id)", "$env:appveyor_build_folder\Vostok.Frontier.Tests\TestResults\tests.trx")
+      [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+      Invoke-WebRequest "https://raw.githubusercontent.com/vostok/appveyor/master/build.ps1" -OutFile "$env:appveyor_build_folder/build.ps1"
+  - powershell -File .\build.ps1
+notifications:
+  - provider: Webhook
+    url: https://webhooks.gitter.im/e/f02e74a3a636a56c590b
+    on_build_success: true
+    on_build_failure: true
+    on_build_status_changed: true
+deploy:
+  - provider: Environment
+    name: Nuget
+    on:
+      appveyor_repo_tag: true
+    artifact: /.*\.nupkg/
+  - provider: Environment
+    name: FullNuget
+    artifact: /.*\.nupkg/
