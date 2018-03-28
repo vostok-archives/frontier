@@ -21,6 +21,8 @@ namespace Vostok.Frontier
             }
         }
 
+        public string ResendTo { get; set; }
+
         public bool IsAllowedDomain(string domain)
         {
             return domainWhitelistHashSet == null || domainWhitelistHashSet.Count == 0 || domainWhitelistHashSet.Contains(domain);

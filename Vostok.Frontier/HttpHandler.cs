@@ -1,6 +1,9 @@
 using System;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 using Microsoft.AspNetCore.Http;
@@ -22,6 +25,8 @@ namespace Vostok.Frontier
         private readonly ICounter totalCounter;
         private readonly ICounter errorCounter;
         private readonly string environment;
+        private readonly string resendTo;
+        private readonly HttpClient resendHttpClient;
 
         public HttpHandler(FrontierSetings setings, IMetricScope metricScope, ILog log, IAirlockClient airlockClient)
         {
@@ -29,6 +34,12 @@ namespace Vostok.Frontier
             this.airlockClient = airlockClient;
             log.Debug("settings: " + setings?.ToPrettyJson());
             var httpScope = metricScope.WithTag(MetricsTagNames.Type, "http");
+            resendTo = setings?.ResendTo;
+            if (string.IsNullOrWhiteSpace(resendTo))
+                resendTo = null;
+            else
+                resendHttpClient = new HttpClient();
+
             reportHandlers = new IReportHandler[]
             {
                 new StacktraceHandler("stacktracejs", httpScope, log, setings),
@@ -60,20 +71,34 @@ namespace Vostok.Frontier
                         context.Response.StatusCode = (int)HttpStatusCode.NotFound;
                         return;
                     }
-                    var reportHandler = reportHandlers.FirstOrDefault(x => x.CanHandle(requestPath));
-                    if (reportHandler == null)
+
+                    var streamReader = new StreamReader(context.Request.Body);
+                    var body = await streamReader.ReadToEndAsync();
+
+                    try
                     {
-                        context.Response.StatusCode = (int)HttpStatusCode.NotFound;
-                        return;
+                        var reportHandler = reportHandlers.FirstOrDefault(x => x.CanHandle(requestPath));
+                        if (reportHandler == null)
+                        {
+                            context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                            return;
+                        }
+
+                        var report = await reportHandler.Handle(context, body);
+                        var logEventData = report.ToLogEventData();
+
+                        var routingKey = RoutingKey.Create(report.GetProject(), environment, "frontier_" + reportHandler.Name, RoutingKey.LogsSuffix);
+                        log.Debug("Send data via airlock to " + routingKey);
+                        airlockClient.Push(routingKey, logEventData, logEventData.Timestamp);
+                        context.Response.StatusCode = (int)HttpStatusCode.NoContent;
                     }
-
-                    var report = await reportHandler.Handle(context);
-                    var logEventData = report.ToLogEventData();
-
-                    var routingKey = RoutingKey.Create(report.GetProject(), environment, "frontier_" + reportHandler.Name, RoutingKey.LogsSuffix);
-                    log.Debug("Send data via airlock to " + routingKey);
-                    airlockClient.Push(routingKey, logEventData, logEventData.Timestamp);
-                    context.Response.StatusCode = (int)HttpStatusCode.NoContent;
+                    finally
+                    {
+                        if (resendTo != null)
+                        {
+                            await ResendRequest(context, body);
+                        }
+                    }
                 }
                 else if (HttpMethods.IsOptions(context.Request.Method))
                 {
@@ -84,6 +109,32 @@ namespace Vostok.Frontier
             {
                 errorCounter.Add();
                 log.Error(e);
+            }
+        }
+
+        private async Task ResendRequest(HttpContext context, string body)
+        {
+            try
+            {
+                var requestUri = resendTo + context.Request.Path;
+                log.Debug("resend to " + requestUri);
+                using (var httpRequestMessage = new HttpRequestMessage(HttpMethod.Post, requestUri) {Content = new StringContent(body, Encoding.UTF8, context.Request.ContentType )})
+                {
+                    foreach (var requestHeader in context.Request.Headers)
+                    {
+                        var headerName = requestHeader.Key;
+                        if (headerName == "Host" || headerName.StartsWith("Content-"))
+                            continue;
+                        log.Debug($"add header {headerName}={requestHeader.Value}");
+                        if (!httpRequestMessage.Headers.TryAddWithoutValidation(headerName, requestHeader.Value.ToArray()))
+                            log.Warn("invalid header " + headerName);
+                    }
+                    await resendHttpClient.SendAsync(httpRequestMessage);
+                }
+            }
+            catch (Exception e)
+            {
+                log.Error(e, "resend error");
             }
         }
 

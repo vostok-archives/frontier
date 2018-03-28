@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -13,7 +12,7 @@ namespace Vostok.Frontier
     public interface IReportHandler : IDisposable
     {
         bool CanHandle(string requestPath);
-        Task<Report> Handle(HttpContext context);
+        Task<Report> Handle(HttpContext context, string body);
         string Name { get; }
     }
 
@@ -39,14 +38,12 @@ namespace Vostok.Frontier
             return requestPath.Contains(Name);
         }
 
-        public async Task<Report> Handle(HttpContext context)
+        public async Task<Report> Handle(HttpContext context, string body)
         {
             totalCounter.Add();
             T report;
             try
             {
-                var streamReader = new StreamReader(context.Request.Body);
-                var body = await streamReader.ReadToEndAsync();
                 report = body.FromJson<T>();
                 await HandleReport(report);
             }
